@@ -128,7 +128,7 @@ namespace FactLab
                     GenerarCFDI();
                 }
             }
-            Response.Redirect("Success.aspx");
+            Response.Redirect("Default.aspx");
             //string close = @"<script type='text/javascript'>
             //                    window.open('', '_self', ''); window.close();
             //                    </script>";
@@ -2128,7 +2128,7 @@ namespace FactLab
                 }
                 else
                 {
-                    Response.Redirect("Alert.aspx");
+                    //Response.Redirect("Alert.aspx");
                     //string msg = "Error al conectar al servicio XSA";
                     //ScriptManager.RegisterStartupScript(this, GetType(), "swal", "swal('" + msg + "', 'Error ', 'error');setTimeout(function(){window.location.href ='Default.aspx'}, 10000)", true);
                     //PopupMsg.Message1 = "Error al conectar al servicio XSA";
@@ -2637,7 +2637,9 @@ namespace FactLab
                 }
                 else
                 {
-                    Response.Redirect("Alert.aspx");
+                    //string msg = "Error ya existe!!!";
+                    //ScriptManager.RegisterStartupScript(this, GetType(), "swal", "swal('" + msg + "', 'Error ', 'error');setTimeout(function(){window.location.href ='Default.aspx'}, 10000)", true);
+                    //Response.Redirect("Alert.aspx");
                 }
             }
 

@@ -11,7 +11,7 @@ namespace FactLab
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string msg = "Se ha generado correctamente el CFDi";
+            string msg = "Generado(s) correctamente el/los CFDi(s)";
             ScriptManager.RegisterStartupScript(this, GetType(), "swal", "swal('" + msg + "', 'Existoso ', 'success');setTimeout(function(){window.location.href ='Default.aspx'}, 10000)", true);
         }
     }
