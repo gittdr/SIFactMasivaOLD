@@ -237,6 +237,11 @@ namespace FactLab
                 tipocomprobante = row["tipocomprobante"].ToString();
                 lugarexpedicion = row["lugarexpedicion"].ToString();
                 usocdfi = row["usocfdi"].ToString();
+                //usocfdi = row["usocfdi"].ToString();
+                if (usocdfi == "P01")
+                {
+                    usocdfi = "CP01";
+                }
                 confirmacion = row["confirmacion"].ToString();
                 relacion = row["relacion"].ToString();
                 uuidrel = row["uuidrel"].ToString();
@@ -313,6 +318,15 @@ namespace FactLab
 
                 //----------------------------------------Seccion De Datos Generales del CFDI-----------------------------------------------------------------------------------------
 
+                //00
+                escritor.WriteLine(
+                "00"
+                + "|" + serie + factur.Trim()
+                + "|" + "FAC"
+                + "|" + "4.0"
+                + "|"
+                );
+                //00 termina
                 //01 INFORMACION GENERAL DEL CFDI (1:1)
 
                 escritor.WriteLine(
@@ -337,6 +351,12 @@ namespace FactLab
                 + "|" + usocdfi                                     //19-Uso CFDI
                 + "|" + confirmacion                                //20-Confirmacion
                 + "|"
+                + "|"
+                + "|"
+                + "|"
+                + "|"
+                + "|" + "01"
+                + "|"
                 );
 
                 //----------------------------------------Seccion de los datos del receptor del CFDI -------------------------------------------------------------------------------------
@@ -360,8 +380,9 @@ namespace FactLab
                 + "|" + cp                                             //14-Codigo Postal
                 + "|" + paisresidencia                                 //15-Pais de Residecia Fiscal Cuando La Empresa Sea Extrajera
                 + "|" + numtributacion                                 //16-Numero de Registro de ID Tributacion 
-                + "|" + mailenvio                                      //17-Correo de envio                                                    
-                + "|"                                                  //Fin Del Registro 
+                + "|" + mailenvio                                      //17-Correo de envio                                                                                                     
+                + "|" + "601"
+                + "|"
                 );
 
                 //----------------------------------------Seccion de detalles de la factura leidos desde vista_fe_detail-------------------------------------------------------------------
@@ -386,6 +407,8 @@ namespace FactLab
                     + "|"                                                  //11-Descuento                                                  
                                                                            //12 Importe con iva si el rfc es XAXX010101000 y XEXX010101000 OPCIONAL
                     + "|"                                                  //Fin Del Registro
+                    + "|" + "02"
+                    + "|"
                      );
 
                     //041 DATOS DE LOS IMPUESTOS TRASLADADOS CONCEPTOS (0:N) 
@@ -434,7 +457,8 @@ namespace FactLab
                 + "|" + tipofactor                                     //3-Tipo Factor
                 + "|" + tasatras                                       //4-Tasa o Cuota
                 + "|" + iva.Trim()                                     //5-Importe
-                + "|"                                                  //Fin Del Registro
+                + "|" + subtotal.Trim()
+                + "|"
                 );
 
                 //Si el valor del importe de la retencion es diferente de 0.00 se escribe el registro de datos de los impuestos retenidos
