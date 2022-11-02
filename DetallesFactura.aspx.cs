@@ -371,6 +371,10 @@ namespace FactLab
                 tipocomprobante = row["tipocomprobante"].ToString();
                 lugarexpedicion = row["lugarexpedicion"].ToString();
                 usocdfi = row["usocfdi"].ToString();
+                if (usocdfi == "P01")
+                {
+                    usocdfi = "CP01";
+                }
                 confirmacion = row["confirmacion"].ToString();
 
 
@@ -597,23 +601,6 @@ namespace FactLab
                     txtFactura.Text = generaIdComprobante;
 
                     //----------------------------------------Seccion De Datos Generales del CFDI-----------------------------------------------------------------------------------------
-                    //00
-
-                    //00
-                    escritor.WriteLine(
-                    "00"
-                    + "|" + serie + fact.Substring(1)
-                    + "|" + "FAC"
-                    + "|" + "4.0"
-                    + "|"
-                    );
-                    escrituraFactura += "00"
-                    + "|" + serie + fact.Substring(1)
-                    + "|" + "FAC"
-                    + "|" + "4.0"
-                    + "|";
-                    //00TERMINA
-                    //00 termina
 
                     //01 INFORMACION GENERAL DEL CFDI (1:1)
 
@@ -639,13 +626,6 @@ namespace FactLab
                     + "|" + usocdfi                                     //19-Uso CFDI
                     + "|" + confirmacion                                //20-Confirmacion
                     + "|"
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|" + "01"
-                    + "|"
                     );
 
                     escrituraFactura += "01"                                                //1.-Tipo De Registro
@@ -668,32 +648,11 @@ namespace FactLab
                     + "|" + lugarexpedicion                             //18-Lugar De Expedicion                                        
                     + "|" + usocdfi                                     //19-Uso CFDI
                     + "|" + confirmacion                                //20-Confirmacion
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|" + "01"
                     + "|";
                 }
                 else
                 {
 
-                    //00
-                    escritor.WriteLine(
-                    "00"
-                    + "|" + serie + fact.Substring(1)
-                    + "|" + "FAC"
-                    + "|" + "4.0"
-                    + "|"
-                    );
-                    escrituraFactura += "00"
-                    + "|" + serie + fact.Substring(1)
-                    + "|" + "FAC"
-                    + "|" + "4.0"
-                    + "|";
-                    //00TERMINA
                     //01 INFORMACION GENERAL DEL CFDI (1:1)
 
                     escritor.WriteLine(
@@ -718,12 +677,6 @@ namespace FactLab
                     + "|" + usocdfi                                      //19-Uso CFDI
                     + "|" + confirmacion                                 //20-Confirmacion
                     + "|"                                                //Fin Del Registro
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|" + "01"
-                    + "|"
                     );
 
                     escrituraFactura += "01"                                                 //1-Tipo De Registro
@@ -746,12 +699,6 @@ namespace FactLab
                     + "|" + lugarexpedicion                              //18-Lugar de Expedicion
                     + "|" + usocdfi                                      //19-Uso CFDI
                     + "|" + confirmacion                                 //20-Confirmacion
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|"
-                    + "|" + "01"
                     + "|";
                 }
 
@@ -777,8 +724,7 @@ namespace FactLab
                 + "|" + paisresidencia                                 //15-Pais de Residecia Fiscal Cuando La Empresa Sea Extrajera
                 + "|" + numtributacion                                 //16-Numero de Registro de ID Tributacion 
                 + "|" + mailenvio                                      //17-Correo de envio                                                    
-                + "|" + "601"
-                + "|"
+                + "|"                                                  //Fin Del Registro 
                 );
                 escrituraFactura += "\\n02"                                                   //1-Tipo De Registro
                 + "|" + idreceptor                                     //2-Id Receptor
@@ -797,7 +743,6 @@ namespace FactLab
                 + "|" + paisresidencia                                 //15-Pais de Residecia Fiscal Cuando La Empresa Sea Extrajera
                 + "|" + numtributacion                                 //16-Numero de Registro de ID Tributacion 
                 + "|" + mailenvio                                      //17-Correo de envio                                                    
-                + "|" + "601"
                 + "|";
 
 
@@ -829,8 +774,6 @@ namespace FactLab
                     + "|"                                                  //11-Descuento                                                  
                                                                            //12 Importe con iva si el rfc es XAXX010101000 y XEXX010101000 OPCIONAL
                     + "|"
-                    + "|" + "02"
-                    + "|"
                      //Fin Del Registro
                      );
                     escrituraFactura += "\\n04"                                                   //1-Tipo De Registro
@@ -845,12 +788,10 @@ namespace FactLab
                     + "|" + lista[5].ToString().Trim()                     //10-Importe
                     + "|"                                                  //11-Descuento                                                  
                                                                            //12 Importe con iva si el rfc es XAXX010101000 y XEXX010101000 OPCIONAL
-                    + "|"
-                    + "|" + "02"
                     + "|";
 
                     //041 DATOS DE LOS IMPUESTOS TRASLADADOS CONCEPTOS Dolares
-                    if (moneda == "USD" && (idreceptor == "WERGLOBA" || idreceptor == "SAYER" || idreceptor == "SAYAPA1" || idreceptor == "GOLTOR" || idreceptor == "TRPLACE" || idreceptor == "TRPLACE"))
+                    if (moneda == "USD" && (idreceptor == "WERGLOBA" || idreceptor == "SAYER" || idreceptor == "SAYAPA" || idreceptor == "GOLTOR" || idreceptor == "TRPLACE" || idreceptor == "TRPLACE"))
                     {
                         //041 DATOS DE LOS IMPUESTOS TRASLADADOS CONCEPTOS (0:N) 
 
@@ -1001,15 +942,13 @@ namespace FactLab
                 + "|" + tipofactor                                     //3-Tipo Factor
                 + "|" + tasatras                                       //4-Tasa o Cuota
                 + "|" + txtIVA.Text.Trim()                             //5-Importe
-                + "|" + txtSubtotal.Text.Trim()
-                + "|"
+                + "|"                                                  //Fin Del Registro
                 );
                 escrituraFactura += "\\n06"                                                   //1-Tipo de Registro
                    + "|" + coditrans                                      //2-Impuesto
                    + "|" + tipofactor                                     //3-Tipo Factor
                    + "|" + tasatras                                       //4-Tasa o Cuota
                    + "|" + txtIVA.Text.Trim()                             //5-Importe
-                   + "|" + txtSubtotal.Text.Trim()
                    + "|";
                 //Si el valor del importe de la retencion es diferente de 0.00 se escribe el registro de datos de los impuestos retenidos
                 if (txtRetencion.Text.Trim() != "")
@@ -1497,6 +1436,7 @@ namespace FactLab
                 }
             }
         }
+
 
         //----------------------------------------Seccion Funciones ---------------------------------------------------------------------------------------------------------------------
 

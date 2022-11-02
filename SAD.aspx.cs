@@ -449,6 +449,10 @@ namespace FactLab
                 tipocomprobante = row["tipocomprobante"].ToString();
                 lugarexpedicion = row["lugarexpedicion"].ToString();
                 usocdfi = row["usocfdi"].ToString();
+                if (usocdfi == "P01")
+                {
+                    usocdfi = "CP01";
+                }
                 confirmacion = row["confirmacion"].ToString();
                 relacion = row["relacion"].ToString();
                 uuidrel = row["uuidrel"].ToString();
